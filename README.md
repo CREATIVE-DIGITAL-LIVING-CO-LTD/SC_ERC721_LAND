@@ -1,5 +1,6 @@
-# Project ANIVERSE ERC20
-
+# Project ANIVERSE ERC721
+### reference 
+- https://github.com/ProjectOpenSea/opensea-creatures
 # List command
 ## start local server
 - npm run start server
