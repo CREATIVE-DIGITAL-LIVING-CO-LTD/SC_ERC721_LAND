@@ -96,35 +96,35 @@ describe("ANIV721 Test", function() {
     await expect(aniv721.connect(A).transferFrom(A.address, B.address, id1)).to.be.reverted;
   });
 
-  // it("correctly sets an operator", async function() {
-  //   await aniv721.connect(owner).mint(A.address, id1);
-  //   expect(await aniv721.connect(A).setApprovalForAll(B.address, true)).to.emit(aniv721, "ApprovalForAll");
-  //   expect(await aniv721.isApprovedForAll(A.address, B.address)).to.equal(true);
-  // });
-  //
-  // it("correctly sets then cancels an operator", async function() {
-  //   await aniv721.connect(owner).mint(A.address, id1);
-  //   await aniv721.connect(A).setApprovalForAll(B.address, true);
-  //   await aniv721.connect(A).setApprovalForAll(B.address, false);
-  //   expect(await aniv721.isApprovedForAll(A.address, B.address)).to.equal(false);
-  // });
-  //
-  // it("correctly transfers NFT from approved address", async function() {
-  //   await aniv721.connect(owner).mint(A.address, id1);
-  //   await aniv721.connect(A).approve(B.address, id1);
-  //   await aniv721.connect(B).transferFrom(A.address, C.address, id1);
-  //   expect(await aniv721.balanceOf(A.address)).to.equal(0);
-  //   expect(await aniv721.balanceOf(C.address)).to.equal(1);
-  //   expect(await aniv721.ownerOf(id1)).to.equal(C.address);
-  // });
-  //
-  // it("correctly transfers NFT as operator", async function() {
-  //   await aniv721.connect(owner).mint(A.address, id1);
-  //   await aniv721.connect(A).setApprovalForAll(B.address, true);
-  //   await aniv721.connect(B).transferFrom(A.address, C.address, id1);
-  //   expect(await aniv721.balanceOf(A.address)).to.equal(0);
-  //   expect(await aniv721.balanceOf(C.address)).to.equal(1);
-  //   expect(await aniv721.ownerOf(id1)).to.equal(C.address);
-  // });
+  it("correctly sets an operator", async function() {
+    await aniv721.connect(owner).mint(A.address, id1);
+    expect(await aniv721.connect(A).setApprovalForAll(B.address, true)).to.emit(aniv721, "ApprovalForAll");
+    expect(await aniv721.isApprovedForAll(A.address, B.address)).to.equal(true);
+  });
+
+  it("correctly sets then cancels an operator", async function() {
+    await aniv721.connect(owner).mint(A.address, id1);
+    await aniv721.connect(A).setApprovalForAll(B.address, true);
+    await aniv721.connect(A).setApprovalForAll(B.address, false);
+    expect(await aniv721.isApprovedForAll(A.address, B.address)).to.equal(false);
+  });
+
+  it("correctly transfers NFT from approved address", async function() {
+    await aniv721.connect(owner).mint(A.address, id1);
+    await aniv721.connect(A).approve(B.address, id1);
+    await aniv721.connect(B).transferFrom(A.address, C.address, id1);
+    expect(await aniv721.balanceOf(A.address)).to.equal(0);
+    expect(await aniv721.balanceOf(C.address)).to.equal(1);
+    expect(await aniv721.ownerOf(id1)).to.equal(C.address);
+  });
+
+  it("correctly transfers NFT as operator", async function() {
+    await aniv721.connect(owner).mint(A.address, id1);
+    await aniv721.connect(A).setApprovalForAll(B.address, true);
+    await aniv721.connect(B).transferFrom(A.address, C.address, id1);
+    expect(await aniv721.balanceOf(A.address)).to.equal(0);
+    expect(await aniv721.balanceOf(C.address)).to.equal(1);
+    expect(await aniv721.ownerOf(id1)).to.equal(C.address);
+  });
 
 });

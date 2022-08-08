@@ -86,4 +86,8 @@ abstract contract ERC721Tradable is ERC721, ContextMixin, NativeMetaTransaction,
     function _msgSender() internal override view returns (address sender){
         return ContextMixin.msgSender();
     }
+
+    function mint(address _to, uint256 tokenId) public onlyOwner {
+        _safeMint(_to, tokenId);
+    }
 }
