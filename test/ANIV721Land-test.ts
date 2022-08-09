@@ -11,21 +11,12 @@ describe("ANIV721 Test", function () {
 
     beforeEach(async () => {
         ;[owner, A, B, C] = await ethers.getSigners()
-        // console.log("owner:", owner.address)
-        // console.log("A:", A.address)
-        // console.log("B:", B.address)
-        // console.log("C:", C.address)
         const ANIV721Land = await ethers.getContractFactory("ANIV721Land")
         const MockProxyRegistry = await ethers.getContractFactory(
             "MockProxyRegistry"
         )
         proxy = await MockProxyRegistry.deploy()
-        //console.log("proxy: ", proxy)
-        // console.log("proxy Owner:", await proxy.owner())
-
         await proxy.connect(owner).setProxy(owner.address, A.address)
-
-        // console.log("proxies of owner :" + (await proxy.proxies(owner.address)))
 
         aniv721 = await ANIV721Land.deploy(proxy.address, MAX_LANDS)
         await aniv721.deployed()
