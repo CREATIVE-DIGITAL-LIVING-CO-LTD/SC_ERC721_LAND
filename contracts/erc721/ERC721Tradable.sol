@@ -41,7 +41,7 @@ abstract contract ERC721Tradable is
      * We track the nextTokenId instead of the currentTokenId to save users on gas costs.
      * Read more about it here: https://shiny.mirror.xyz/OUampBbIz9ebEicfGnQf5At_ReMHlZy0tB4glb9xQ0E
      */
-    Counters.Counter private _nextTokenId;
+
     address proxyRegistryAddress;
 
     constructor(
@@ -50,28 +50,13 @@ abstract contract ERC721Tradable is
         address _proxyRegistryAddress
     ) ERC721(_name, _symbol) {
         proxyRegistryAddress = _proxyRegistryAddress;
-        // nextTokenId is initialized to 1, since starting at 0 leads to higher gas cost for the first minter
-        _nextTokenId.increment();
         _initializeEIP712(_name);
-    }
-
-    /**
-     * @dev Mints a token to an address with a tokenURI.
-     * @param _to address of the future owner of the token
-     */
-    function mintTo(address _to) public onlyOwner {
-        uint256 currentTokenId = _nextTokenId.current();
-        _nextTokenId.increment();
-        _safeMint(_to, currentTokenId);
     }
 
     /**
         @dev Returns the total tokens minted so far.
         1 is always subtracted from the Counter since it tracks the next available tokenId.
      */
-    function totalSupply() public view returns (uint256) {
-        return _nextTokenId.current() - 1;
-    }
 
     function baseTokenURI() public pure virtual returns (string memory);
 
@@ -110,10 +95,6 @@ abstract contract ERC721Tradable is
      */
     function _msgSender() internal view override returns (address sender) {
         return ContextMixin.msgSender();
-    }
-
-    function mint(address _to, uint256 tokenId) public onlyOwner {
-        _safeMint(_to, tokenId);
     }
 
     /**

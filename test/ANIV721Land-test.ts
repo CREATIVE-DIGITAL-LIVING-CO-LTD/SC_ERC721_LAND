@@ -4,18 +4,30 @@ import { ethers } from "hardhat"
 describe("ANIV721 Test", function () {
     let aniv721: any, proxy: any, owner: any, A: any, B: any, C: any
     const zeroAddress = "0x0000000000000000000000000000000000000000"
+    const baseURI = "https://api-dev.aniv.io/"
+    const MAX_LANDS = 30000
     const id1 = 9001
     const id2 = 9002
 
     beforeEach(async () => {
         ;[owner, A, B, C] = await ethers.getSigners()
+        // console.log("owner:", owner.address)
+        // console.log("A:", A.address)
+        // console.log("B:", B.address)
+        // console.log("C:", C.address)
         const ANIV721Land = await ethers.getContractFactory("ANIV721Land")
         const MockProxyRegistry = await ethers.getContractFactory(
             "MockProxyRegistry"
         )
         proxy = await MockProxyRegistry.deploy()
-        proxy.setProxy(owner, A.address)
-        aniv721 = await ANIV721Land.deploy(proxy.address)
+        //console.log("proxy: ", proxy)
+        // console.log("proxy Owner:", await proxy.owner())
+
+        await proxy.connect(owner).setProxy(owner.address, A.address)
+
+        // console.log("proxies of owner :" + (await proxy.proxies(owner.address)))
+
+        aniv721 = await ANIV721Land.deploy(proxy.address, MAX_LANDS)
         await aniv721.deployed()
     })
 
@@ -55,6 +67,10 @@ describe("ANIV721 Test", function () {
 
     it("throws when trying to find owner od non-existing NFT id", async function () {
         await expect(aniv721.ownerOf(id1)).to.be.reverted
+    })
+
+    it("correctly return baseTokenURI", async function () {
+        expect(await aniv721.connect(A).baseTokenURI()).to.equal(baseURI)
     })
 
     it("correctly approves account", async function () {
@@ -152,7 +168,30 @@ describe("ANIV721 Test", function () {
         expect(await aniv721.ownerOf(id1)).to.equal(C.address)
     })
 
-    // 7sol work
+    // Operator
+
+    it("correctly opensea transfers NFT as operator", async function () {
+        await aniv721.connect(owner).mint(B.address, id1)
+        await proxy.connect(owner).setProxy(B.address, A.address)
+        await aniv721.connect(A).transferFrom(B.address, C.address, id1)
+        expect(await aniv721.balanceOf(B.address)).to.equal(0)
+        expect(await aniv721.balanceOf(C.address)).to.equal(1)
+        expect(await aniv721.ownerOf(id1)).to.equal(C.address)
+    })
+
+    it("correctly return uri", async function () {
+        await aniv721.connect(owner).mint(owner.address, id1)
+        expect(await aniv721.connect(owner).tokenURI(id1)).to.be.equal(
+            `${baseURI}${id1}`
+        )
+    })
+
+    it("correctly return totalSupply", async function () {
+        for (var i = 1; i <= 10; i++) {
+            await aniv721.connect(owner).mint(owner.address, i)
+        }
+        expect(await aniv721.connect(owner).totalSupply()).to.be.equal(10)
+    })
 
     it("throw when owner approve to non-operator", async function () {
         await expect(aniv721.connect(owner).approve(A.address, id1)).to.be

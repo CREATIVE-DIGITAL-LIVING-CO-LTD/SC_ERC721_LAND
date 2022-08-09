@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>0/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">62.5% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>5/8</span>
+        <span class='fraction'>0/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/3</span>
+        <span class='fraction'>0/3</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>0/7</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -76,19 +76,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6×</span>
-<span class="cline-any cline-yes">6×</span>
-<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
@@ -99,20 +99,20 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Operator is Ownable {
     mapping(address =&gt; bool) private _operators;
 &nbsp;
-    function _addOperator(address operatorAddr) internal virtual {
-        <span class="missing-if-branch" title="else path not taken" >E</span>require(operatorAddr != address(0), "Operator can't be address zero");
-        require(!_operators[operatorAddr], "Duplicate operator");
-        _operators[operatorAddr] = true;
+<span class="fstat-no" title="function not covered" >    function _addOperator(address operatorAddr) internal virtual {</span>
+<span class="cstat-no" title="statement not covered" >        require(operatorAddr != address(0), "Operator can't be address zero")</span>;
+<span class="cstat-no" title="statement not covered" >        require(!_operators[operatorAddr], "Duplicate operator")</span>;
+<span class="cstat-no" title="statement not covered" >        _operators[operatorAddr] = true</span>;
     }
 &nbsp;
-    function _revokeOperator(address operatorAddr) internal virtual {
-        <span class="missing-if-branch" title="else path not taken" >E</span>require(operatorAddr != address(0), "Operator can't be address zero");
-        <span class="missing-if-branch" title="else path not taken" >E</span>require(_operators[operatorAddr], "operator not found");
+<span class="fstat-no" title="function not covered" >    function _revokeOperator(address operatorAddr) internal virtual {</span>
+<span class="cstat-no" title="statement not covered" >        require(operatorAddr != address(0), "Operator can't be address zero")</span>;
+<span class="cstat-no" title="statement not covered" >        require(_operators[operatorAddr], "operator not found")</span>;
         delete _operators[operatorAddr];
     }
 &nbsp;
-    function isOperator(address operatorAddr) public view returns (bool) {
-        return _operators[operatorAddr];
+<span class="fstat-no" title="function not covered" >    function isOperator(address operatorAddr) public view returns (bool) {</span>
+<span class="cstat-no" title="statement not covered" >        return _operators[operatorAddr];</span>
     }
 }
 &nbsp;</pre></td></tr>
@@ -121,7 +121,7 @@ contract Operator is Ownable {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Aug 09 2022 16:07:02 GMT+0700 (Indochina Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Aug 09 2022 17:22:14 GMT+0700 (Indochina Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
