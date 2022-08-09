@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/6</span>
+        <span class='fraction'>6/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/6</span>
+        <span class='fraction'>6/6</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -91,24 +91,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">87×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">41×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">41×</span>
+<span class="cline-any cline-yes">39×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
@@ -122,27 +122,27 @@ contract ANIV721Land is ERC721Tradable {
     Counters.Counter private _totalSupply;
     uint256 public immutable MAX_LANDS;
 &nbsp;
-<span class="fstat-no" title="function not covered" >    constructor(address _proxyRegistryAddress, uint256 _maxlands)</span>
+    constructor(address _proxyRegistryAddress, uint256 _maxlands)
         ERC721Tradable("Aniverse", "ANIV", _proxyRegistryAddress)
     {
-<span class="cstat-no" title="statement not covered" >        MAX_LANDS = _maxlands</span>;
+        MAX_LANDS = _maxlands;
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    function baseTokenURI() public pure override returns (string memory) {</span>
-<span class="cstat-no" title="statement not covered" >        return "https://api-dev.aniv.io/";</span>
+    function baseTokenURI() public pure override returns (string memory) {
+        return "https://api-dev.aniv.io/";
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    function totalSupply() public view returns (uint256) {</span>
-<span class="cstat-no" title="statement not covered" >        return _totalSupply.current();</span>
+    function totalSupply() public view returns (uint256) {
+        return _totalSupply.current();
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    function mint(address _to, uint256 tokenId) public onlyOwner {</span>
-<span class="cstat-no" title="statement not covered" >        require(</span>
+    function mint(address _to, uint256 tokenId) public onlyOwner {
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(
             _totalSupply.current() &lt;= MAX_LANDS,
             "tokenId is out of bounds"
         );
-<span class="cstat-no" title="statement not covered" >        _safeMint(_to, tokenId)</span>;
-<span class="cstat-no" title="statement not covered" >        _totalSupply.increment()</span>;
+        _safeMint(_to, tokenId);
+        _totalSupply.increment();
     }
 }
 &nbsp;</pre></td></tr>
@@ -151,7 +151,7 @@ contract ANIV721Land is ERC721Tradable {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Aug 09 2022 17:22:14 GMT+0700 (Indochina Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Aug 09 2022 17:30:24 GMT+0700 (Indochina Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
