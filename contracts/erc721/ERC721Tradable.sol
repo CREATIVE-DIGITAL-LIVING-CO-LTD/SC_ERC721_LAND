@@ -3,13 +3,14 @@
 pragma solidity 0.8.15;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 import "./common/meta-transactions/ContentMixin.sol";
 import "./common/meta-transactions/NativeMetaTransaction.sol";
+
+import "../Operator.sol";
 
 contract OwnableDelegateProxy {}
 
@@ -24,9 +25,16 @@ contract ProxyRegistry {
  * @title ERC721Tradable
  * ERC721Tradable - ERC721 contract that whitelists a trading address, and has minting functionality.
  */
-abstract contract ERC721Tradable is ERC721, ContextMixin, NativeMetaTransaction, Ownable {
+abstract contract ERC721Tradable is
+    ERC721,
+    ContextMixin,
+    NativeMetaTransaction,
+    Operator
+{
     using SafeMath for uint256;
     using Counters for Counters.Counter;
+
+    mapping(address => uint256[]) private _operartorLandApproval;
 
     /**
      * We rely on the OZ Counter util to keep track of the next available ID.
@@ -36,7 +44,11 @@ abstract contract ERC721Tradable is ERC721, ContextMixin, NativeMetaTransaction,
     Counters.Counter private _nextTokenId;
     address proxyRegistryAddress;
 
-    constructor(string memory _name, string memory _symbol, address _proxyRegistryAddress) ERC721(_name, _symbol) {
+    constructor(
+        string memory _name,
+        string memory _symbol,
+        address _proxyRegistryAddress
+    ) ERC721(_name, _symbol) {
         proxyRegistryAddress = _proxyRegistryAddress;
         // nextTokenId is initialized to 1, since starting at 0 leads to higher gas cost for the first minter
         _nextTokenId.increment();
@@ -61,16 +73,29 @@ abstract contract ERC721Tradable is ERC721, ContextMixin, NativeMetaTransaction,
         return _nextTokenId.current() - 1;
     }
 
-    function baseTokenURI() virtual public pure returns (string memory);
+    function baseTokenURI() public pure virtual returns (string memory);
 
-    function tokenURI(uint256 _tokenId) override public pure returns (string memory) {
-        return string(abi.encodePacked(baseTokenURI(), Strings.toString(_tokenId)));
+    function tokenURI(uint256 _tokenId)
+        public
+        pure
+        override
+        returns (string memory)
+    {
+        return
+            string(
+                abi.encodePacked(baseTokenURI(), Strings.toString(_tokenId))
+            );
     }
 
     /**
      * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
      */
-    function isApprovedForAll(address owner, address operator) override public view returns (bool){
+    function isApprovedForAll(address owner, address operator)
+        public
+        view
+        override
+        returns (bool)
+    {
         // Whitelist OpenSea proxy contract for easy trading.
         ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
         if (address(proxyRegistry.proxies(owner)) == operator) {
@@ -83,11 +108,41 @@ abstract contract ERC721Tradable is ERC721, ContextMixin, NativeMetaTransaction,
     /**
      * This is used instead of msg.sender as transactions won't be sent by the original token owner, but by OpenSea.
      */
-    function _msgSender() internal override view returns (address sender){
+    function _msgSender() internal view override returns (address sender) {
         return ContextMixin.msgSender();
     }
 
     function mint(address _to, uint256 tokenId) public onlyOwner {
         _safeMint(_to, tokenId);
+    }
+
+    /**
+     * This is for addition logic for only operator can get approve from owner.
+     */
+    function approve(address to, uint256 tokenId) public override {
+        if (msgSender() == owner()) {
+            _addLandToOperator(to, tokenId);
+        }
+        super.approve(to, tokenId);
+    }
+
+    function addOperator(address to) public onlyOwner {
+        _addOperator(to);
+    }
+
+    function revokeOperator(address to) public onlyOwner {
+        uint256[] memory _tokenId = _operartorLandApproval[to];
+        for (uint256 i = 0; i < _tokenId.length; i++) {
+            _approve(address(0), _tokenId[i]);
+        }
+        _revokeOperator(to);
+    }
+
+    function _addLandToOperator(address to, uint256 tokenId) internal virtual {
+        require(isOperator(to), "Address is not operator");
+        require(ERC721.ownerOf(tokenId) == owner(), "Land not owned by owner");
+        uint256[] storage _tokenId = _operartorLandApproval[to];
+        _tokenId.push(tokenId);
+        _operartorLandApproval[to] = _tokenId;
     }
 }
