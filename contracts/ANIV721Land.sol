@@ -10,13 +10,13 @@ contract ANIV721Land is ERC721Tradable {
     uint256 public immutable MAX_LANDS;
 
     constructor(address _proxyRegistryAddress, uint256 _maxlands)
-        ERC721Tradable("Aniverse", "ANIV", _proxyRegistryAddress)
+        ERC721Tradable("EIEI", "ee", _proxyRegistryAddress)
     {
         MAX_LANDS = _maxlands;
     }
 
     function baseTokenURI() public pure override returns (string memory) {
-        return "https://api-dev.aniv.io/";
+        return "ipfs://QmaCGg6pgDZZQBQZiFUJSAuTiCbyj5DTj7hxk2Bj2GJ6sy/";
     }
 
     function totalSupply() public view returns (uint256) {

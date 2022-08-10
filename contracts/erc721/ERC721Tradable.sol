@@ -34,6 +34,8 @@ abstract contract ERC721Tradable is
     using SafeMath for uint256;
     using Counters for Counters.Counter;
 
+    bool IS_USE_OPENSEA_PROXY;
+
     mapping(address => uint256[]) private _operartorLandApproval;
 
     /**
@@ -49,6 +51,7 @@ abstract contract ERC721Tradable is
         string memory _symbol,
         address _proxyRegistryAddress
     ) ERC721(_name, _symbol) {
+        IS_USE_OPENSEA_PROXY = false;
         proxyRegistryAddress = _proxyRegistryAddress;
         _initializeEIP712(_name);
     }
@@ -59,6 +62,14 @@ abstract contract ERC721Tradable is
      */
 
     function baseTokenURI() public pure virtual returns (string memory);
+
+    // function useOpenseaProxy() public {
+    //     IS_USE_OPENSEA_PROXY = true;
+    // }
+
+    // function stopOpenseaProxy() public {
+    //     IS_USE_OPENSEA_PROXY = false;
+    // }
 
     function tokenURI(uint256 _tokenId)
         public
@@ -81,11 +92,13 @@ abstract contract ERC721Tradable is
         override
         returns (bool)
     {
-        // Whitelist OpenSea proxy contract for easy trading.
-        ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
-        if (address(proxyRegistry.proxies(owner)) == operator) {
-            return true;
-        }
+        // if (IS_USE_OPENSEA_PROXY) {
+        //     // Whitelist OpenSea proxy contract for easy trading.
+        //     ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
+        //     if (address(proxyRegistry.proxies(owner)) == operator) {
+        //         return true;
+        //     }
+        // }
 
         return super.isApprovedForAll(owner, operator);
     }
