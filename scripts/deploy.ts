@@ -16,7 +16,7 @@ async function main() {
         // await contract.stopOpenseaProxy()
         const newItemId = await contract.mint(
             "0x176d29eD0952E41e38d83D543473e5Bb24E68F13",
-            6231
+            4331
         )
 
         console.log(`NFT minted successfully with id ${newItemId}`)
