@@ -24,10 +24,7 @@ contract ANIV721Land is ERC721Tradable {
     }
 
     function mint(address _to, uint256 tokenId) public onlyOwner {
-        require(
-            _totalSupply.current() <= MAX_LANDS,
-            "tokenId is out of bounds"
-        );
+        require(_totalSupply.current() < MAX_LANDS, "tokenId is out of bounds");
         _safeMint(_to, tokenId);
         _totalSupply.increment();
     }

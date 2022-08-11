@@ -115,11 +115,11 @@ abstract contract ERC721Tradable is
     }
 
     function revokeOperator(address to) public onlyOwner {
+        _revokeOperator(to);
         uint256[] memory _tokenId = _operartorLandApproval[to];
         for (uint256 i = 0; i < _tokenId.length; i++) {
             _approve(address(0), _tokenId[i]);
         }
-        _revokeOperator(to);
     }
 
     function _addLandToOperator(address to, uint256 tokenId) internal virtual {
