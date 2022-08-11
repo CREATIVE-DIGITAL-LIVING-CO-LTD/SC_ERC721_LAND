@@ -4,7 +4,8 @@ import { ethers } from "hardhat"
 describe("ANIV721 Test", function () {
     let aniv721: any, proxy: any, owner: any, A: any, B: any, C: any
     const zeroAddress = "0x0000000000000000000000000000000000000000"
-    const baseURI = "https://api-dev.aniv.io/"
+    // const baseURI = "https://api-dev.aniv.io/"
+    const baseURI = "ipfs://QmaCGg6pgDZZQBQZiFUJSAuTiCbyj5DTj7hxk2Bj2GJ6sy/"
     const MAX_LANDS = 30000
     const id1 = 9001
     const id2 = 9002

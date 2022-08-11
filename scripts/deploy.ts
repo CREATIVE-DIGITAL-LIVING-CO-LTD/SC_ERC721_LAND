@@ -2,21 +2,17 @@ import { ethers } from "hardhat"
 
 async function main() {
     const ANIV721Land = await ethers.getContractFactory("ANIV721Land")
+    // "0xff7Ca10aF37178BdD056628eF42fD7F799fAc77c", // proxy on polygon mumbai
+    // "0xf57b2c51ded3a29e6891aba85459d600256cf317", // proxy on rinkeby
     const contract = await ANIV721Land.deploy(
-        "0xff7Ca10aF37178BdD056628eF42fD7F799fAc77c",
-        // "0xf57b2c51ded3a29e6891aba85459d600256cf317", // proxy on rinkeby
+        "0xf57b2c51ded3a29e6891aba85459d600256cf317",
         30000
     )
     try {
         await contract.deployed()
         console.log("Token address:", contract.address)
-        // const newItemId = await contract.mint(
-        //     "0x176d29eD0952E41e38d83D543473e5Bb24E68F13",
-        //     "https://ipfs.io/ipfs/QmYxxGUadhu7snGVZunRKoRzGtkXPGmZsNnBywPNjgSQLo"
-        // )
-        // await contract.stopOpenseaProxy()
         const newItemId = await contract.mint(
-            "0x176d29eD0952E41e38d83D543473e5Bb24E68F13",
+            "0xa4185e56993971325B5089F7bBde7EF25dC82856",
             4331
         )
 

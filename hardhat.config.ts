@@ -48,6 +48,9 @@ const config: HardhatUserConfig = {
     etherscan: {
         apiKey: {
             polygonMumbai: process.env.POLYGONSCAN_TESTNET_API_KEY || "",
+            rinkeby:
+                process.env.RINKEBYSCAN_API_KEY ||
+                "TE58BZERE255M6DVEBE5VFWW6B648KM882",
         },
     },
 }
