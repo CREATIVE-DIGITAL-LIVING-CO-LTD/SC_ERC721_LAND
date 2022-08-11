@@ -18,8 +18,8 @@ const config: HardhatUserConfig = {
         polygonMumbai: {
             url: process.env.POLYGON_TESTNET_URL || "",
             accounts:
-                process.env.PRIVATE_KEY_TESTNET !== undefined
-                    ? [process.env.PRIVATE_KEY_TESTNET]
+                process.env.PRIVATE_KEY_MUMBAI !== undefined
+                    ? [process.env.PRIVATE_KEY_MUMBAI]
                     : [],
         },
         polygon_mainnet: {
