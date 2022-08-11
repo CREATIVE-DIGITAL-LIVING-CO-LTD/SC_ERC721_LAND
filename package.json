@@ -11,9 +11,10 @@
         "test": "npx hardhat test",
         "coverage": "npx hardhat coverage",
         "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
-        "deploy:testnet": "npx hardhat run scripts/deploy.ts --network polygon_testnet",
+        "deploy:testnet": "npx hardhat run scripts/deploy.ts --network polygonMumbai",
         "deploy:mainnet": "npx hardhat run scripts/deploy.ts --network polygon_mainnet",
-        "deploy:rinkeby": "npx hardhat run scripts/deploy.ts --network rinkeby"
+        "deploy:rinkeby": "npx hardhat run scripts/deploy.ts --network rinkeby",
+        "verify:mumbai": "npx hardhat verify 0xc8B8cD14cFC5f830f2F35F97980540866601872E --network polygonMumbai"
     },
     "author": "Pasut Th",
     "license": "ISC",
@@ -50,5 +51,8 @@
         "ts-node": "10.8.1",
         "typechain": "5.2.0",
         "typescript": "4.7.4"
+    },
+    "dependencies": {
+        "opensea-js": "^4.0.6"
     }
 }

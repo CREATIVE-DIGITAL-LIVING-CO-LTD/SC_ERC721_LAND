@@ -3,7 +3,8 @@ import { ethers } from "hardhat"
 async function main() {
     const ANIV721Land = await ethers.getContractFactory("ANIV721Land")
     const contract = await ANIV721Land.deploy(
-        "0xf57b2c51ded3a29e6891aba85459d600256cf317",
+        "0xff7Ca10aF37178BdD056628eF42fD7F799fAc77c",
+        // "0xf57b2c51ded3a29e6891aba85459d600256cf317", // proxy on rinkeby
         30000
     )
     try {

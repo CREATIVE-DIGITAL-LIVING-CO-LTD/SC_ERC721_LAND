@@ -15,7 +15,7 @@ dotenv.config({ path: __dirname + "/.env" })
 const config: HardhatUserConfig = {
     solidity: "0.8.15",
     networks: {
-        polygon_testnet: {
+        polygonMumbai: {
             url: process.env.POLYGON_TESTNET_URL || "",
             accounts:
                 process.env.PRIVATE_KEY_TESTNET !== undefined
@@ -32,8 +32,8 @@ const config: HardhatUserConfig = {
         rinkeby: {
             url: process.env.RINKEBY_URL || "",
             accounts:
-                process.env.PRIVATE_KEY !== undefined
-                    ? [process.env.PRIVATE_KEY]
+                process.env.PRIVATE_KEY_RINKEBY !== undefined
+                    ? [process.env.PRIVATE_KEY_RINKEBY]
                     : [],
         },
     },
@@ -46,7 +46,9 @@ const config: HardhatUserConfig = {
         token: "MATIC",
     },
     etherscan: {
-        apiKey: process.env.ETHERSCAN_API_KEY,
+        apiKey: {
+            polygonMumbai: process.env.POLYGONSCAN_TESTNET_API_KEY || "",
+        },
     },
 }
 
