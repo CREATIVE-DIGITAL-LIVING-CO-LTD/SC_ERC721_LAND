@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 import "./common/meta-transactions/ContentMixin.sol";
 import "./common/meta-transactions/NativeMetaTransaction.sol";
@@ -29,7 +30,8 @@ abstract contract ERC721Tradable is
     ERC721,
     ContextMixin,
     NativeMetaTransaction,
-    Operator
+    Operator,
+    Ownable
 {
     using SafeMath for uint256;
     using Counters for Counters.Counter;

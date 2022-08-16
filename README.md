@@ -42,7 +42,7 @@
 
 ### polygon testnet
 
--   npx hardhat verify `<addr>` `"<proxy address>"` `"<max land>"` --network polygonMumbai
+-   npx hardhat verify 0x2cb160c4aB93352170215Dd96FbcF6CF4d2e7f3d "0xff7Ca10aF37178BdD056628eF42fD7F799fAc77c" "30000" --network polygonMumbai
 
 ### eth rinkeby
 

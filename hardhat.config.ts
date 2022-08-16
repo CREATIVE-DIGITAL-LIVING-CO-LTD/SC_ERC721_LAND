@@ -16,24 +16,24 @@ const config: HardhatUserConfig = {
     solidity: "0.8.15",
     networks: {
         polygonMumbai: {
-            url: process.env.POLYGON_TESTNET_URL || "",
+            url: process.env.MUMBAI_URL || "",
             accounts:
-                process.env.PRIVATE_KEY_MUMBAI !== undefined
-                    ? [process.env.PRIVATE_KEY_MUMBAI]
+                process.env.MUMBAI_PRIVATE_KEY !== undefined
+                    ? [process.env.MUMBAI_PRIVATE_KEY]
                     : [],
         },
         polygon_mainnet: {
-            url: process.env.POLYGON_MAINNET_URL || "",
+            url: process.env.POLYGON_URL || "",
             accounts:
-                process.env.PRIVATE_KEY_MAINNET !== undefined
-                    ? [process.env.PRIVATE_KEY_MAINNET]
+                process.env.POLYGON_PRIVATE_KEY !== undefined
+                    ? [process.env.POLYGON_PRIVATE_KEY]
                     : [],
         },
         rinkeby: {
             url: process.env.RINKEBY_URL || "",
             accounts:
-                process.env.PRIVATE_KEY_RINKEBY !== undefined
-                    ? [process.env.PRIVATE_KEY_RINKEBY]
+                process.env.RINKEBY_PRIVATE_KEY !== undefined
+                    ? [process.env.RINKEBY_PRIVATE_KEY]
                     : [],
         },
     },
@@ -47,8 +47,8 @@ const config: HardhatUserConfig = {
     },
     etherscan: {
         apiKey: {
-            polygonMumbai: process.env.POLYGONSCAN_TESTNET_API_KEY || "",
-            rinkeby: process.env.RINKEBYSCAN_API_KEY || "",
+            polygonMumbai: process.env.MUMBAI_POLYGONSCAN_API_KEY || "",
+            rinkeby: process.env.ETHEREUM_ETHERSCAN_API_KEY || "",
         },
     },
 }
