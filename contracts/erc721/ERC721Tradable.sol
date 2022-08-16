@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 import "./common/meta-transactions/ContentMixin.sol";
 import "./common/meta-transactions/NativeMetaTransaction.sol";
@@ -29,10 +30,13 @@ abstract contract ERC721Tradable is
     ERC721,
     ContextMixin,
     NativeMetaTransaction,
-    Operator
+    Operator,
+    Ownable
 {
     using SafeMath for uint256;
     using Counters for Counters.Counter;
+
+    bool IS_USE_OPENSEA_PROXY;
 
     mapping(address => uint256[]) private _operartorLandApproval;
 
@@ -49,6 +53,7 @@ abstract contract ERC721Tradable is
         string memory _symbol,
         address _proxyRegistryAddress
     ) ERC721(_name, _symbol) {
+        IS_USE_OPENSEA_PROXY = false;
         proxyRegistryAddress = _proxyRegistryAddress;
         _initializeEIP712(_name);
     }
@@ -101,7 +106,7 @@ abstract contract ERC721Tradable is
      * This is for addition logic for only operator can get approve from owner.
      */
     function approve(address to, uint256 tokenId) public override {
-        if (msgSender() == owner()) {
+        if (msg.sender == owner()) {
             _addLandToOperator(to, tokenId);
         }
         super.approve(to, tokenId);
@@ -112,11 +117,11 @@ abstract contract ERC721Tradable is
     }
 
     function revokeOperator(address to) public onlyOwner {
+        _revokeOperator(to);
         uint256[] memory _tokenId = _operartorLandApproval[to];
         for (uint256 i = 0; i < _tokenId.length; i++) {
             _approve(address(0), _tokenId[i]);
         }
-        _revokeOperator(to);
     }
 
     function _addLandToOperator(address to, uint256 tokenId) internal virtual {
@@ -125,5 +130,16 @@ abstract contract ERC721Tradable is
         uint256[] storage _tokenId = _operartorLandApproval[to];
         _tokenId.push(tokenId);
         _operartorLandApproval[to] = _tokenId;
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual override {
+        if (isOperator(to)) {
+            require(msg.sender != to, "Operator can't transfer to itself");
+        }
+        super._beforeTokenTransfer(from, to, tokenId);
     }
 }

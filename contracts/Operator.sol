@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.15;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-
-contract Operator is Ownable {
+contract Operator {
     mapping(address => bool) private _operators;
 
     function _addOperator(address operatorAddr) internal virtual {

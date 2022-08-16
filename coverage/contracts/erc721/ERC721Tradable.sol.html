@@ -22,22 +22,22 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>21/21</span>
+        <span class='fraction'>25/25</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.5% </span>
+        <span class="strong">83.33% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>7/8</span>
+        <span class='fraction'>10/12</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>8/8</span>
+        <span class='fraction'>9/9</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>21/21</span>
+        <span class='fraction'>25/25</span>
       </div>
     </div>
   </div>
@@ -172,7 +172,23 @@
 127
 128
 129
-130</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,8 +239,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">87×</span>
-<span class="cline-any cline-yes">87×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">90×</span>
+<span class="cline-any cline-yes">90×</span>
+<span class="cline-any cline-yes">90×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -256,9 +277,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8×</span>
-<span class="cline-any cline-yes">8×</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6×</span>
@@ -268,7 +289,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">172×</span>
+<span class="cline-any cline-yes">178×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -282,15 +303,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">7×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,6 +322,17 @@
 <span class="cline-any cline-yes">16×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
 &nbsp;
 pragma solidity 0.8.15;
@@ -309,6 +341,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 &nbsp;
 import "./common/meta-transactions/ContentMixin.sol";
 import "./common/meta-transactions/NativeMetaTransaction.sol";
@@ -332,10 +365,13 @@ abstract contract ERC721Tradable is
     ERC721,
     ContextMixin,
     NativeMetaTransaction,
-    Operator
+    Operator,
+    Ownable
 {
     using SafeMath for uint256;
     using Counters for Counters.Counter;
+&nbsp;
+    bool IS_USE_OPENSEA_PROXY;
 &nbsp;
     mapping(address =&gt; uint256[]) private _operartorLandApproval;
 &nbsp;
@@ -352,6 +388,7 @@ abstract contract ERC721Tradable is
         string memory _symbol,
         address _proxyRegistryAddress
     ) ERC721(_name, _symbol) {
+        IS_USE_OPENSEA_PROXY = false;
         proxyRegistryAddress = _proxyRegistryAddress;
         _initializeEIP712(_name);
     }
@@ -404,7 +441,7 @@ abstract contract ERC721Tradable is
      * This is for addition logic for only operator can get approve from owner.
      */
     function approve(address to, uint256 tokenId) public override {
-        if (msgSender() == owner()) {
+        if (msg.sender == owner()) {
             _addLandToOperator(to, tokenId);
         }
         super.approve(to, tokenId);
@@ -415,11 +452,11 @@ abstract contract ERC721Tradable is
     }
 &nbsp;
     function revokeOperator(address to) public onlyOwner {
+        _revokeOperator(to);
         uint256[] memory _tokenId = _operartorLandApproval[to];
         for (uint256 i = 0; i &lt; _tokenId.length; i++) {
             _approve(address(0), _tokenId[i]);
         }
-        _revokeOperator(to);
     }
 &nbsp;
     function _addLandToOperator(address to, uint256 tokenId) internal virtual {
@@ -429,6 +466,17 @@ abstract contract ERC721Tradable is
         _tokenId.push(tokenId);
         _operartorLandApproval[to] = _tokenId;
     }
+&nbsp;
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual override {
+        if (isOperator(to)) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>require(msg.sender != to, "Operator can't transfer to itself");
+        }
+        super._beforeTokenTransfer(from, to, tokenId);
+    }
 }
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -436,7 +484,7 @@ abstract contract ERC721Tradable is
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Aug 09 2022 17:30:24 GMT+0700 (Indochina Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Aug 16 2022 14:53:45 GMT+0700 (Indochina Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

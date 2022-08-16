@@ -268,4 +268,15 @@ describe("ANIV721 Test", function () {
             expect(await aniv721.connect(A).getApproved(i)).to.equal(B.address)
         }
     })
+
+    it("operator can not transfer NFT to their own account", async function () {
+        await aniv721.connect(owner).mint(owner.address, id1)
+        await aniv721.connect(owner).addOperator(A.address)
+        expect(await aniv721.connect(owner).isOperator(A.address)).to.equal(
+            true
+        )
+        await expect(
+            aniv721.connect(A).transferFrom(owner.address, A.address, id1)
+        ).to.be.reverted
+    })
 })

@@ -10,7 +10,11 @@ contract ANIV721Land is ERC721Tradable {
     uint256 public immutable MAX_LANDS;
 
     constructor(address _proxyRegistryAddress, uint256 _maxlands)
-        ERC721Tradable("Aniverse", "ANIV", _proxyRegistryAddress)
+        ERC721Tradable(
+            "ANIV's Poseidon land",
+            "Aposeidon",
+            _proxyRegistryAddress
+        )
     {
         MAX_LANDS = _maxlands;
     }
@@ -24,10 +28,7 @@ contract ANIV721Land is ERC721Tradable {
     }
 
     function mint(address _to, uint256 tokenId) public onlyOwner {
-        require(
-            _totalSupply.current() <= MAX_LANDS,
-            "tokenId is out of bounds"
-        );
+        require(_totalSupply.current() < MAX_LANDS, "tokenId is out of bounds");
         _safeMint(_to, tokenId);
         _totalSupply.increment();
     }
