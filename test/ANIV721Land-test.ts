@@ -275,6 +275,8 @@ describe("ANIV721 Test", function () {
         expect(await aniv721.connect(owner).isOperator(A.address)).to.equal(
             true
         )
+        await aniv721.connect(owner).approve(A.address, id1)
+        expect(await aniv721.connect(A).getApproved(id1)).to.equal(A.address)
         await expect(
             aniv721.connect(A).transferFrom(owner.address, A.address, id1)
         ).to.be.reverted
