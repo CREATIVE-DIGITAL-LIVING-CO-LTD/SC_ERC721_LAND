@@ -13,7 +13,7 @@ require("solidity-coverage")
 dotenv.config({ path: __dirname + "/.env" })
 
 const config: HardhatUserConfig = {
-    solidity: "0.8.15",
+    solidity: "0.8.16",
     networks: {
         polygonMumbai: {
             url: process.env.MUMBAI_URL || "",

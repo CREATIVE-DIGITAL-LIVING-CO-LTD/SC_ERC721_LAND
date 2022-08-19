@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.15;
+pragma solidity 0.8.16;
 
 import "./erc721/ERC721Tradable.sol";
 
@@ -20,7 +20,7 @@ contract ANIV721Land is ERC721Tradable {
     }
 
     function baseTokenURI() public pure override returns (string memory) {
-        return "https://api-dev.aniv.io/";
+        return "https://public-filestore.s3.ap-southeast-1.amazonaws.com/land-asset-dev/sample/";
     }
 
     function totalSupply() public view returns (uint256) {
