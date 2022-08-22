@@ -20,7 +20,7 @@ contract ANIV721Land is ERC721Tradable {
     }
 
     function baseTokenURI() public pure override returns (string memory) {
-        return "https://public-filestore.s3.ap-southeast-1.amazonaws.com/land-asset-dev/sample/";
+        return "https://api-asset-dev.aniv.io/OpenSeaLand/by_token/";
     }
 
     function totalSupply() public view returns (uint256) {
