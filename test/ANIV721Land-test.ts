@@ -66,6 +66,7 @@ describe("ANIV721 Test", function () {
 
     it("correctly approves account", async function () {
         await aniv721.connect(owner).mint(A.address, id1)
+        await aniv721.connect(owner).addOperator(B.address)
         expect(await aniv721.connect(A).approve(B.address, id1)).to.emit(
             aniv721,
             "Approval"
@@ -75,8 +76,9 @@ describe("ANIV721 Test", function () {
 
     it("correctly cancels approval", async function () {
         await aniv721.connect(owner).mint(A.address, id1)
+        await aniv721.connect(owner).addOperator(B.address)
         await aniv721.connect(A).approve(B.address, id1)
-        await aniv721.connect(A).approve(zeroAddress, id1)
+        await aniv721.connect(A).revokeApprove(id1)
         expect(await aniv721.getApproved(id1)).to.equal(zeroAddress)
     })
 
@@ -143,6 +145,7 @@ describe("ANIV721 Test", function () {
 
     it("correctly transfers NFT from approved address", async function () {
         await aniv721.connect(owner).mint(A.address, id1)
+        await aniv721.connect(owner).addOperator(B.address)
         await aniv721.connect(A).approve(B.address, id1)
         await aniv721.connect(B).transferFrom(A.address, C.address, id1)
         expect(await aniv721.balanceOf(A.address)).to.equal(0)
@@ -178,7 +181,7 @@ describe("ANIV721 Test", function () {
     })
 
     it("correctly return totalSupply", async function () {
-        for (var i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 10; i++) {
             await aniv721.connect(owner).mint(owner.address, i)
         }
         expect(await aniv721.connect(owner).totalSupply()).to.be.equal(10)
@@ -226,10 +229,10 @@ describe("ANIV721 Test", function () {
     })
 
     it("correctly revoke operator", async function () {
-        for (var i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 10; i++) {
             await aniv721.connect(owner).mint(owner.address, i)
         }
-        //add operator
+        // add operator
         await aniv721.connect(owner).addOperator(A.address)
         expect(await aniv721.connect(owner).isOperator(A.address)).to.equal(
             true
@@ -239,17 +242,17 @@ describe("ANIV721 Test", function () {
             true
         )
 
-        //approve
-        for (var i = 1; i <= 5; i++) {
+        // approve
+        for (let i = 1; i <= 5; i++) {
             await aniv721.connect(owner).approve(A.address, i)
             expect(await aniv721.connect(A).getApproved(i)).to.equal(A.address)
         }
-        for (var i = 6; i <= 10; i++) {
+        for (let i = 6; i <= 10; i++) {
             await aniv721.connect(owner).approve(B.address, i)
             expect(await aniv721.connect(A).getApproved(i)).to.equal(B.address)
         }
 
-        //revoke
+        // revoke
         await aniv721.connect(owner).revokeOperator(A.address)
         expect(await aniv721.connect(owner).isOperator(A.address)).to.equal(
             false
@@ -258,12 +261,12 @@ describe("ANIV721 Test", function () {
             true
         )
 
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             expect(await aniv721.connect(A).getApproved(i)).to.be.equal(
                 zeroAddress
             )
         }
-        for (var i = 6; i <= 10; i++) {
+        for (let i = 6; i <= 10; i++) {
             await aniv721.connect(owner).approve(B.address, i)
             expect(await aniv721.connect(A).getApproved(i)).to.equal(B.address)
         }
@@ -280,5 +283,14 @@ describe("ANIV721 Test", function () {
         await expect(
             aniv721.connect(A).transferFrom(owner.address, A.address, id1)
         ).to.be.reverted
+    })
+
+    it("correctly revoke approve", async function () {
+        await aniv721.connect(owner).mint(A.address, id1)
+        await expect(aniv721.connect(owner).revokeApprove(id1)).to.be.reverted
+    })
+    it("throw when not owner call revoke approve", async function () {
+        await aniv721.connect(owner).mint(A.address, id1)
+        await expect(aniv721.connect(owner).revokeApprove(id1)).to.be.reverted
     })
 })
