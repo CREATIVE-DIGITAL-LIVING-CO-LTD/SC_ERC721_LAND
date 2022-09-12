@@ -106,13 +106,10 @@ abstract contract ERC721Tradable is
      * This is for addition logic for only operator can get approve from owner.
      */
     function approve(address to, uint256 tokenId) public override {
-        _addLandToOperator(to, tokenId);
+        if (msg.sender == owner()) {
+            _addLandToOperator(to, tokenId);
+        }
         super.approve(to, tokenId);
-    }
-
-    function revokeApprove(uint256 tokenId) public  {
-        require(ERC721.ownerOf(tokenId) == msgSender(), "Land not owned by owner");
-        super.approve(address(0), tokenId);
     }
 
     function addOperator(address to) public onlyOwner {
@@ -129,7 +126,7 @@ abstract contract ERC721Tradable is
 
     function _addLandToOperator(address to, uint256 tokenId) internal virtual {
         require(isOperator(to), "Address is not operator");
-        require(ERC721.ownerOf(tokenId) == msgSender(), "Land not owned by owner");
+        require(ERC721.ownerOf(tokenId) == owner(), "Land not owned by owner");
         uint256[] storage _tokenId = _operartorLandApproval[to];
         _tokenId.push(tokenId);
         _operartorLandApproval[to] = _tokenId;
