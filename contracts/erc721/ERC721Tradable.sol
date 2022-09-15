@@ -44,6 +44,7 @@ abstract contract ERC721Tradable is
 	 * Read more about it here: https://shiny.mirror.xyz/OUampBbIz9ebEicfGnQf5At_ReMHlZy0tB4glb9xQ0E
 	 */
 	uint256 public maxOperatorLand = 600;
+	uint256 public immutable MAX_VALUE_OPERATOR_LAND = 600;
 	address public proxyRegistryAddress;
 	address public candidateOwner;
 	
@@ -174,7 +175,7 @@ abstract contract ERC721Tradable is
 	}
 	
 	function setMaxOperatorLand(uint256 _newMaxOperatorLand) external onlyOwner {
-		require(_newMaxOperatorLand > 0, "Set Max Operator Land more than zeo");
+		require(_newMaxOperatorLand > 0 && _newMaxOperatorLand < MAX_VALUE_OPERATOR_LAND, "Set Max Operator Land more than zero");
 		uint256 _oldMaxOperatorLand = maxOperatorLand;
 		maxOperatorLand = _newMaxOperatorLand;
 		emit SetMaxOperatorLand(_oldMaxOperatorLand, _newMaxOperatorLand);
