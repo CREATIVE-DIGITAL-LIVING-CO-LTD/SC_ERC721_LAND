@@ -131,9 +131,9 @@ abstract contract ERC721Tradable is
 	function _addLandToOperator(address to, uint256 tokenId) internal virtual {
 		require(isOperator(to), "Address is not operator");
 		require(ERC721.ownerOf(tokenId) == owner(), "Land not owned by owner");
-		require(!_operatorTokenApproval[to][tokenId], "tokenId was approved");
+		require(!_operatorTokenApproval[to][tokenId], "Token id was approved");
 		uint256[] storage _tokenId = _operatorLandApproval[to];
-		require(_tokenId.length <= maxOperatorLand, "Current Operator is Max");
+		require(_tokenId.length <= maxOperatorLand, "Current operator has maxed land");
 		_tokenId.push(tokenId);
 		_operatorTokenApproval[to][tokenId] = true;
 		emit AddLandToOperator(tokenId, to);
@@ -175,7 +175,7 @@ abstract contract ERC721Tradable is
 	}
 	
 	function setMaxOperatorLand(uint256 _newMaxOperatorLand) external onlyOwner {
-		require(_newMaxOperatorLand > 0 && _newMaxOperatorLand < MAX_VALUE_OPERATOR_LAND, "Set Max Operator Land more than zero");
+		require(_newMaxOperatorLand > 0 && _newMaxOperatorLand <= MAX_VALUE_OPERATOR_LAND, "Operator must be operate lands between 1 - 1000");
 		uint256 _oldMaxOperatorLand = maxOperatorLand;
 		maxOperatorLand = _newMaxOperatorLand;
 		emit SetMaxOperatorLand(_oldMaxOperatorLand, _newMaxOperatorLand);
