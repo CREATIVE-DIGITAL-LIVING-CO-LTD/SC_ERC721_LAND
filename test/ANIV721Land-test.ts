@@ -18,7 +18,7 @@ describe("ANIV721 Test", function () {
         proxy = await MockProxyRegistry.deploy()
         await proxy.connect(owner).setProxy(owner.address, A.address)
 
-        aniv721 = await ANIV721Land.deploy(proxy.address, MAX_LANDS)
+        aniv721 = await ANIV721Land.deploy(proxy.address, MAX_LANDS, baseURI)
         await aniv721.deployed()
     })
 
@@ -178,7 +178,7 @@ describe("ANIV721 Test", function () {
     })
 
     it("correctly return totalSupply", async function () {
-        for (var i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 10; i++) {
             await aniv721.connect(owner).mint(owner.address, i)
         }
         expect(await aniv721.connect(owner).totalSupply()).to.be.equal(10)
@@ -226,10 +226,9 @@ describe("ANIV721 Test", function () {
     })
 
     it("correctly revoke operator", async function () {
-        for (var i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 10; i++) {
             await aniv721.connect(owner).mint(owner.address, i)
         }
-        //add operator
         await aniv721.connect(owner).addOperator(A.address)
         expect(await aniv721.connect(owner).isOperator(A.address)).to.equal(
             true
@@ -238,18 +237,14 @@ describe("ANIV721 Test", function () {
         expect(await aniv721.connect(owner).isOperator(B.address)).to.equal(
             true
         )
-
-        //approve
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             await aniv721.connect(owner).approve(A.address, i)
             expect(await aniv721.connect(A).getApproved(i)).to.equal(A.address)
         }
-        for (var i = 6; i <= 10; i++) {
+        for (let i = 6; i <= 10; i++) {
             await aniv721.connect(owner).approve(B.address, i)
             expect(await aniv721.connect(A).getApproved(i)).to.equal(B.address)
         }
-
-        //revoke
         await aniv721.connect(owner).revokeOperator(A.address)
         expect(await aniv721.connect(owner).isOperator(A.address)).to.equal(
             false
@@ -257,14 +252,12 @@ describe("ANIV721 Test", function () {
         expect(await aniv721.connect(owner).isOperator(B.address)).to.equal(
             true
         )
-
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             expect(await aniv721.connect(A).getApproved(i)).to.be.equal(
                 zeroAddress
             )
         }
-        for (var i = 6; i <= 10; i++) {
-            await aniv721.connect(owner).approve(B.address, i)
+        for (let i = 6; i <= 10; i++) {
             expect(await aniv721.connect(A).getApproved(i)).to.equal(B.address)
         }
     })
@@ -280,5 +273,27 @@ describe("ANIV721 Test", function () {
         await expect(
             aniv721.connect(A).transferFrom(owner.address, A.address, id1)
         ).to.be.reverted
+    })
+
+    it("mint land token id between 1 - MAX LAND ", async function () {
+        await expect(aniv721.connect(owner).mint(A.address, 0)).to.be.reverted
+        expect(await aniv721.connect(owner).mint(A.address, 30000)).to.emit(
+            aniv721,
+            "Transfer"
+        )
+        await expect(aniv721.connect(owner).mint(A.address, 99999)).to.be
+            .reverted
+    })
+
+    it("Base token uri", async function () {
+        const uriTest = "test"
+        await aniv721.connect(owner).setBaseTokenURI(uriTest)
+        expect(await aniv721.connect(owner).baseTokenURI()).to.equal(uriTest)
+    })
+
+    it("set Base token uri not owner", async function () {
+        const uriTest = "test"
+        await expect(aniv721.connect(A.address).setBaseTokenURI(uriTest)).to.be
+            .reverted
     })
 })
