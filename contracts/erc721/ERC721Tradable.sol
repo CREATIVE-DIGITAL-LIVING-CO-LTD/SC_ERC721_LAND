@@ -44,7 +44,7 @@ abstract contract ERC721Tradable is
 	 * Read more about it here: https://shiny.mirror.xyz/OUampBbIz9ebEicfGnQf5At_ReMHlZy0tB4glb9xQ0E
 	 */
 	uint256 public maxOperatorLand = 600;
-	uint256 public immutable MAX_VALUE_OPERATOR_LAND = 600;
+	uint256 public immutable MAX_VALUE_OPERATOR_LAND = 1000;
 	address public proxyRegistryAddress;
 	address public candidateOwner;
 	
