@@ -10,6 +10,9 @@ contract ANIV721Land is ERC721Tradable {
 	uint256 public immutable MAX_LANDS;
 	string private _baseTokenURI;
 	
+	event SetBaseTokenURI(string indexed oldBaseTokenUri, string indexed newBaseTokenUri);
+	event SetBaseTokenURIInitial(string indexed baseTokenUri);
+	
 	constructor(address _proxyRegistryAddress, uint256 _maxlands, string memory _tokenUri)
 	ERC721Tradable(
 		"ANIV's Poseidon land",
@@ -18,6 +21,7 @@ contract ANIV721Land is ERC721Tradable {
 	){
 		MAX_LANDS = _maxlands;
 		_baseTokenURI = _tokenUri;
+		emit SetBaseTokenURIInitial(_tokenUri);
 	}
 	
 	function baseTokenURI() public view override returns (string memory) {
@@ -25,7 +29,9 @@ contract ANIV721Land is ERC721Tradable {
 	}
 	
 	function setBaseTokenURI(string memory uri) public onlyOwner {
+		string memory _oldBaseTokenURI = _baseTokenURI;
 		_baseTokenURI = uri;
+		emit SetBaseTokenURI(_oldBaseTokenURI, uri);
 	}
 	
 	function totalSupply() public view returns (uint256) {
@@ -34,7 +40,7 @@ contract ANIV721Land is ERC721Tradable {
 	
 	function mint(address _to, uint256 tokenId) public onlyOwner {
 		require(_totalSupply.current() < MAX_LANDS, "Total supply is Maxed");
-		require( tokenId > 0 && tokenId <= MAX_LANDS, "Token Id must be more than 0 AND less than MAX_LANDS");
+		require(tokenId > 0 && tokenId <= MAX_LANDS, "Token Id must be more than 0 AND less than or equal to MAX_LANDS");
 		_safeMint(_to, tokenId);
 		_totalSupply.increment();
 	}

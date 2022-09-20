@@ -124,6 +124,7 @@ abstract contract ERC721Tradable is
 			if (getApproved(_tokenId[i]) == to) {
 				_approve(address(0), _tokenId[i]);
 			}
+			_operatorTokenApproval[to][_tokenId[i]] = false;
 		}
 		delete _operatorLandApproval[to];
 	}
@@ -133,7 +134,10 @@ abstract contract ERC721Tradable is
 		require(ERC721.ownerOf(tokenId) == owner(), "Land not owned by owner");
 		require(!_operatorTokenApproval[to][tokenId], "Token id was approved");
 		uint256[] storage _tokenId = _operatorLandApproval[to];
-		require(_tokenId.length <= maxOperatorLand, "Current operator has maxed land");
+		require(_tokenId.length < maxOperatorLand, "Current operator has maxed land");
+		if (getApproved(tokenId) != address(0)) {
+			_operatorTokenApproval[getApproved(tokenId)][tokenId] = false;
+		}
 		_tokenId.push(tokenId);
 		_operatorTokenApproval[to][tokenId] = true;
 		emit AddLandToOperator(tokenId, to);
