@@ -1,6 +1,6 @@
 import { ethers } from "hardhat"
 
-const { PROXY_REGISTRY_POLYGON, ADDRESS_MAINNET, BASE_TOKEN_URI } = process.env
+const { PROXY_REGISTRY_POLYGON, BASE_TOKEN_URI } = process.env
 
 async function main() {
     const ANIV721Land = await ethers.getContractFactory("ANIV721Land")
@@ -14,9 +14,8 @@ async function main() {
     try {
         await contract.deployed()
         console.log("Token address:", contract.address)
-        const newItemId = await contract.mint(ADDRESS_MAINNET!, 1)
-
-        console.log(`NFT minted successfully with id ${newItemId}`)
+        // const newItemId = await contract.mint(ADDRESS_MAINNET!, 1)
+        // console.log(`NFT minted successfully with id ${newItemId}`)
     } catch (error: any) {
         console.log(`Minting Error: ${error.message}`)
     }
