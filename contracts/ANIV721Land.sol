@@ -15,8 +15,8 @@ contract ANIV721Land is ERC721Tradable {
 	
 	constructor(address _proxyRegistryAddress, uint256 _maxlands, string memory _tokenUri)
 	ERC721Tradable(
-		"ANIV's Poseidon land",
-		"Aposeidon",
+		"Aniverse Land of Poseidon",
+		"PSD",
 		_proxyRegistryAddress
 	){
 		MAX_LANDS = _maxlands;
