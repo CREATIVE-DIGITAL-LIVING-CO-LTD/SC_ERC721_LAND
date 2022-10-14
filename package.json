@@ -13,7 +13,8 @@
         "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
         "deploy:polygon": "npx hardhat run scripts/deploy-polygon.ts --network polygon_mainnet",
         "deploy:mumbai": "npx hardhat run scripts/deploy-mumbai.ts --network polygonMumbai",
-        "deploy:rinkeby": "npx hardhat run scripts/deploy-rinkeby.ts --network rinkeby"
+        "deploy:rinkeby": "npx hardhat run scripts/deploy-rinkeby.ts --network rinkeby",
+        "deploy:goerli": "npx hardhat run scripts/deploy-goerli.ts --network goerli"
     },
     "author": "Pasut Th",
     "license": "ISC",
