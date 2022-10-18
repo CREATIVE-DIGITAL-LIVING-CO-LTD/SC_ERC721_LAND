@@ -50,6 +50,13 @@ const config: HardhatUserConfig = {
                     ? [process.env.SEPOLIA_PRIVATE_KEY]
                     : [],
         },
+        fuji: {
+            url: process.env.FUJI_URL || "",
+            accounts:
+                process.env.FUJI_PRIVATE_KEY !== undefined
+                    ? [process.env.FUJI_PRIVATE_KEY]
+                    : [],
+        },
     },
     gasReporter: {
         enabled: process.env.REPORT_GAS !== undefined,

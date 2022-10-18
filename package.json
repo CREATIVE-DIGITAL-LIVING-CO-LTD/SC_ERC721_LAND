@@ -15,7 +15,8 @@
         "deploy:mumbai": "npx hardhat run scripts/deploy-mumbai.ts --network polygonMumbai",
         "deploy:rinkeby": "npx hardhat run scripts/deploy-rinkeby.ts --network rinkeby",
         "deploy:goerli": "npx hardhat run scripts/deploy-goerli.ts --network goerli",
-        "deploy:sepolia": "npx hardhat run scripts/deploy-sepolia.ts --network sepolia"
+        "deploy:sepolia": "npx hardhat run scripts/deploy-sepolia.ts --network sepolia",
+        "deploy:fuji": "npx hardhat run scripts/deploy-fuji.ts --network fuji"
     },
     "author": "Pasut Th",
     "license": "ISC",
